@@ -1,0 +1,36 @@
+<div>
+  <app-essayform (onEssaySubmit)="submitEssayForm($event)"></app-essayform>
+  <br />
+  <app-paraform (onParaSubmit)="submitParaForm($event)"></app-paraform>
+  <div *ngIf="essayDetails.title" class="pt10">
+    <div class="card">
+      <div class="card-header">
+        <b> Essay Title: </b> {{ essayDetails.title }} <br />
+        <b>Total Words:</b>
+        {{ essayDetails.wordCount }}
+      </div>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Reference</th>
+          <th scope="col">Weightage</th>
+          <th scope="col">Approximate Word Count</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let paraDetail of paraDetails">
+        <tr>
+          <td>{{ paraDetail.reference }}</td>
+          <td>{{ paraDetail.weightage }}</td>
+          <td>
+            {{
+              multiplicator *
+                this.getWeightageMultiplicator(paraDetail.weightage)
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

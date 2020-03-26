@@ -1,0 +1,39 @@
+<h5>Paragraph Details</h5>
+<hr />
+<form [formGroup]="paraform" (ngSubmit)="paraSubmit(paraform.value)">
+  <div class="form-group ">
+    <div class="form-group ">
+      <label>Paragraph Reference</label>
+      <input
+        type="text"
+        class="form-control"
+        id="reference"
+        placeholder="Introduction / Body Paragraph / Conclusion"
+        formControlName="reference"
+      />
+      <div
+        *ngIf="!reference.valid && !reference.pristine"
+        class="alert alert-danger"
+      >
+        <div *ngIf="reference.errors.required">
+          Para reference is required
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group ">
+      <label>Weightage</label>
+      <select id="inputState" class="form-control" formControlName="weightage">
+        <option *ngFor="let weightage of weightageValues">{{
+          weightage.name
+        }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary btn-sm" [disabled]="!paraform.valid">
+        Add
+      </button>
+    </div>
+  </div>
+</form>
