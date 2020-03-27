@@ -11,12 +11,13 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { EditComponent } from "./edit/edit.component";
 import { EssayformComponent } from "./essayform/essayform.component";
 import { ParaformComponent } from "./paraform/paraform.component";
+import { EditorModule } from "@progress/kendo-angular-editor";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-
     SpecificationsComponent,
     EditComponent,
     EssayformComponent,
@@ -24,13 +25,15 @@ import { ParaformComponent } from "./paraform/paraform.component";
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: "edit", component: EditComponent },
       { path: "", component: SpecificationsComponent, pathMatch: "full" }
-    ])
+    ]),
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
