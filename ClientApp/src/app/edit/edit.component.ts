@@ -12,6 +12,8 @@ export class EditComponent implements OnInit {
 
   wordCount = 0;
 
+  value = "";
+
   change(value: any): void {
     // it splits the text on space/tab/enter
     // const splitText = value ? value.split(/\s+/) : 0;
