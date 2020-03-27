@@ -25,8 +25,10 @@
           <td>{{ paraDetail.weightage }}</td>
           <td>
             {{
-              multiplicator *
-                this.getWeightageMultiplicator(paraDetail.weightage)
+              Math.floor(
+                multiplicator *
+                  this.getWeightageMultiplicator(paraDetail.weightage)
+              )
             }}
           </td>
         </tr>

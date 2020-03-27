@@ -20,11 +20,11 @@ export class SpecificationsComponent implements OnInit {
 
   paraDetails = [];
 
+  Math = Math;
+
   submitEssayForm(formValue) {
     this.essayDetails.title = formValue.title;
     this.essayDetails.wordCount = formValue.wordCount;
-
-    console.log(this.essayDetails);
   }
 
   submitParaForm(formValue) {
@@ -35,7 +35,9 @@ export class SpecificationsComponent implements OnInit {
     this.resetMultiplier();
   }
 
+  //Calculate Multiplier used for finding approximate word count of each Paragraph
   resetMultiplier() {
+    // For 1 "Low" Para, 1 "Medium" Para and 1 "High" Para -> total weightage = (1 + 2 + 3) = 6
     const totalWeightage = this.paraDetails.reduce(
       (a, b) => a + (this.getWeightageMultiplicator(b.weightage) || 0),
       0
@@ -44,6 +46,8 @@ export class SpecificationsComponent implements OnInit {
     this.multiplicator = this.essayDetails.wordCount / totalWeightage;
   }
 
+  // Paragraph Weightage used to calculate approximate word count for each Para
+  // Low -> 1 | Medium -> 2 | High -> 3
   getWeightageMultiplicator(weightage) {
     switch (weightage) {
       case "Low": {
