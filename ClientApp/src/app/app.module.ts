@@ -28,9 +28,8 @@ import { ParaformComponent } from "./paraform/paraform.component";
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: "", component: SpecificationsComponent, pathMatch: "full" },
-      { path: "specifications", component: SpecificationsComponent },
-      { path: "edit", component: EditComponent }
+      { path: "edit", component: EditComponent },
+      { path: "", component: SpecificationsComponent, pathMatch: "full" }
     ])
   ],
   providers: [],
