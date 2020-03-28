@@ -45,6 +45,5 @@ export class ParaformComponent implements OnInit {
     this.onParaSubmit.emit(f);
     this.paraform.reset();
     this.paraform.setValue({ reference: "", weightage: "Low" });
-    console.log(this.paraform);
   }
 }

@@ -1,8 +1,12 @@
 <div>
-  <app-essayform (onEssaySubmit)="submitEssayForm($event)"></app-essayform>
+  <div *ngIf="!essayDetails.title">
+    <app-essayform (onEssaySubmit)="submitEssayForm($event)"></app-essayform>
+  </div>
+
   <br />
-  <app-paraform (onParaSubmit)="submitParaForm($event)"></app-paraform>
+
   <div *ngIf="essayDetails.title" class="pt10">
+    <app-paraform (onParaSubmit)="submitParaForm($event)"></app-paraform>
     <div class="card">
       <div class="card-header">
         <b> Essay Title: </b> {{ essayDetails.title }} <br />
@@ -12,14 +16,19 @@
     </div>
 
     <table class="table table-striped">
+      <colgroup>
+        <col class="col-md-8" />
+        <col class="col-md-2" />
+        <col class="col-md-2" />
+      </colgroup>
       <thead>
         <tr>
-          <th scope="col">Reference</th>
+          <th scope="col">Paragraph Reference</th>
           <th scope="col">Weightage</th>
           <th scope="col">Approximate Word Count</th>
         </tr>
       </thead>
-      <tbody *ngFor="let paraDetail of paraDetails">
+      <tbody *ngFor="let paraDetail of paragraphArray">
         <tr>
           <td>{{ paraDetail.reference }}</td>
           <td>{{ paraDetail.weightage }}</td>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.css"]
+  selector: "app-editor",
+  templateUrl: "./editor.component.html",
+  styleUrls: ["./editor.component.css"]
 })
-export class EditComponent implements OnInit {
+export class EditorComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
@@ -21,8 +21,6 @@ export class EditComponent implements OnInit {
     // this.wordCount = splitText ? splitText.length : "";
 
     const matches = value.match(/[^\s\n\r]+/g);
-
-    console.log("matches", matches);
 
     this.wordCount = matches ? matches.length : 0;
   }

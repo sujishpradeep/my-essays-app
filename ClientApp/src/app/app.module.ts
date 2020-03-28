@@ -8,20 +8,22 @@ import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./nav-menu/nav-menu.component";
 import { SpecificationsComponent } from "./specifications/specifications.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { EditComponent } from "./edit/edit.component";
 import { EssayformComponent } from "./essayform/essayform.component";
 import { ParaformComponent } from "./paraform/paraform.component";
 import { EditorModule } from "@progress/kendo-angular-editor";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { EditorComponent } from "./editor/editor.component";
+import { EditpageComponent } from "./editpage/editpage.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     SpecificationsComponent,
-    EditComponent,
     EssayformComponent,
-    ParaformComponent
+    ParaformComponent,
+    EditorComponent,
+    EditpageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -30,7 +32,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: "edit", component: EditComponent },
+      { path: "edit", component: EditpageComponent },
       { path: "", component: SpecificationsComponent, pathMatch: "full" }
     ]),
     EditorModule
