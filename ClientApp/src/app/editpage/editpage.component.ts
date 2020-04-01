@@ -15,8 +15,19 @@ export class EditpageComponent implements OnInit {
     wordCount: 0
   };
 
+  isExpanded: boolean[] = [];
+
   ngOnInit() {
     this.paragraphArray = getParas();
     this.essayDetails = getEssayDetails();
+    this.isExpanded = new Array(this.paragraphArray.length).fill(false);
+  }
+
+  onClick(i) {
+    console.log("before", this.isExpanded);
+    console.log("i", i);
+    (this.isExpanded[i] as any) = !this.isExpanded[i];
+
+    console.log("after", this.isExpanded);
   }
 }

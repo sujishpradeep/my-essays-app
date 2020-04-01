@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
+import Countable from "countable";
 @Component({
   selector: "app-editor",
   templateUrl: "./editor.component.html",
@@ -11,17 +12,34 @@ export class EditorComponent implements OnInit {
   ngOnInit() {}
 
   wordCount = 0;
-
   value = "";
 
   change(value: any): void {
-    // it splits the text on space/tab/enter
-    // const splitText = value ? value.split(/\s+/) : 0;
+    //Regular expression to split the input value based on HTML tags
+    let tagsArray = value
+      .split(/<[a-zA-Z0-9]*>([^<.*>;]*)<\/[a-zA-Z0-9]*>/gim)
+      .filter(x => x.trim() !== "");
 
-    // this.wordCount = splitText ? splitText.length : "";
+    this.wordCount = 0;
 
-    const matches = value.match(/[^\s\n\r]+/g);
+    tagsArray.forEach(t => {
+      const content = t.replace(/<[^>]*>?/gm, "");
 
-    this.wordCount = matches ? matches.length : 0;
+      if (content) {
+        //Replace punctuations with "" to exclude from word count.
+        var punctRegX = /[!\.?;,:&_\-\-\{\}\[\]\(\)~#'"]/g;
+        var contentcontent = content.replace(punctRegX, "");
+
+        //Replace spaces with "" to exclude extra spaces from word count.
+        var trimRegX = /(^\s+)|(\s+$)/g;
+        contentcontent = contentcontent.replace(trimRegX, "");
+
+        if (contentcontent) {
+          const splitRegX = /\s+/;
+          var array = contentcontent.split(splitRegX);
+          this.wordCount += array.length;
+        }
+      }
+    });
   }
 }

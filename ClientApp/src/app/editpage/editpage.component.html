@@ -14,11 +14,23 @@
       </div>
     </div>
   </div>
-  <div *ngFor="let para of paragraphArray">
-    <div class="alert alert-secondary">
-      Paragraph reference - {{ para.reference }}
+  <div *ngFor="let para of paragraphArray; index as i">
+    <div class="zippy">
+      <div
+        class="zippy-heading "
+        [class.expanded]="isExpanded[i]"
+        (click)="onClick(i)"
+      >
+        Paragraph reference - {{ para.reference }}
+        <div
+          class="k-icon "
+          [ngClass]="isExpanded[i] ? 'k-i-minus-circle' : 'k-i-plus-circle'"
+        ></div>
+      </div>
+      <div *ngIf="isExpanded[i]">
+        <app-editor class="mt10"></app-editor>
+      </div>
     </div>
-    <app-editor></app-editor>
   </div>
 </ng-template>
 

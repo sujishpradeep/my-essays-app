@@ -2,6 +2,7 @@
   [value]="value"
   style="height: 450px;"
   (valueChange)="change($event)"
+  id="test"
 >
   <kendo-toolbar>
     <kendo-toolbar-buttongroup>
@@ -76,4 +77,10 @@
     <kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
   </kendo-toolbar>
 </kendo-editor>
+<br />
+
+<span class="badge badge-info float-right mr10">{{ wordCount }} words</span>
+
+<br />
+
 <br />
