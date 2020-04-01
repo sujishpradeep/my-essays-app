@@ -3,7 +3,7 @@
 <div *ngIf="essayDetails.title; then editPage; else noEditPage"></div>
 
 <ng-template #editPage
-  ><div class="alert alert-info" *ngIf="essayDetails.title">
+  ><div class="alert alert-info noSelect" *ngIf="essayDetails.title">
     <div class="row">
       <div class="col-9">Title - {{ essayDetails.title }}</div>
 
@@ -17,7 +17,7 @@
   <div *ngFor="let para of paragraphArray; index as i">
     <div class="zippy">
       <div
-        class="zippy-heading "
+        class="zippy-heading noSelect"
         [class.expanded]="isExpanded[i]"
         (click)="onClick(i)"
       >
