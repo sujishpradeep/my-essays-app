@@ -28,7 +28,14 @@
         ></div>
       </div>
       <div *ngIf="isExpanded[i]">
-        <app-editor class="mt10"></app-editor>
+        <app-editor
+          class="mt10"
+          maxWordCount="{{
+            Math.floor(
+              multiplicator * this.getWeightageMultiplicator(para.weightage)
+            )
+          }}"
+        ></app-editor>
       </div>
     </div>
   </div>

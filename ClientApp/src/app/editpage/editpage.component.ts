@@ -17,17 +17,48 @@ export class EditpageComponent implements OnInit {
 
   isExpanded: boolean[] = [];
 
+  multiplicator = 0;
+
+  Math = Math;
+
   ngOnInit() {
     this.paragraphArray = getParas();
     this.essayDetails = getEssayDetails();
     this.isExpanded = new Array(this.paragraphArray.length).fill(false);
+    this.resetMultiplier();
+  }
+
+  //Calculate Multiplier used for finding approximate word count of each Paragraph
+  resetMultiplier() {
+    // For 1 "Low" Para, 1 "Medium" Para and 1 "High" Para -> total weightage = (1 + 2 + 3) = 6
+    const totalWeightage = this.paragraphArray.reduce(
+      (a, b) => a + (this.getWeightageMultiplicator(b.weightage) || 0),
+      0
+    );
+
+    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
   }
 
   onClick(i) {
-    console.log("before", this.isExpanded);
-    console.log("i", i);
     (this.isExpanded[i] as any) = !this.isExpanded[i];
+  }
 
-    console.log("after", this.isExpanded);
+  // Paragraph Weightage used to calculate approximate word count for each Para
+  // Low -> 1 | Medium -> 2 | High -> 3
+  getWeightageMultiplicator(weightage) {
+    switch (weightage) {
+      case "Low": {
+        return 1;
+      }
+      case "Medium": {
+        return 2;
+      }
+      case "High": {
+        return 3;
+      }
+      default: {
+        return 1;
+      }
+    }
   }
 }

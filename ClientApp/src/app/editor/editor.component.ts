@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 import Countable from "countable";
 @Component({
@@ -8,10 +8,11 @@ import Countable from "countable";
 })
 export class EditorComponent implements OnInit {
   constructor() {}
-
   ngOnInit() {}
 
-  wordCount = 0;
+  @Input("maxWordCount") maxWordCount: Number;
+
+  wordCount: Number = 0;
   value = "";
 
   change(value: any): void {

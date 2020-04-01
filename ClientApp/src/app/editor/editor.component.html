@@ -80,7 +80,16 @@
 </kendo-editor>
 <br />
 
-<span class="badge badge-info float-right mr10">{{ wordCount }} words</span>
+<div>
+  <span class="badge badge-warning ml10" *ngIf="wordCount > maxWordCount">
+    Maximum word count of {{ maxWordCount }} exeeded</span
+  >
+  <span
+    class="badge  float-right mr10"
+    [ngClass]="wordCount > maxWordCount ? 'badge-danger' : 'badge-info'"
+    >{{ wordCount }} words</span
+  >
+</div>
 
 <br />
 
