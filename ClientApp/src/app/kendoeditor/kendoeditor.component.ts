@@ -1,19 +1,33 @@
-import { Component, OnInit, Input } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Output,
+  Input,
+  ChangeDetectionStrategy
+} from "@angular/core";
+import { DialogComponent } from "./dialog.component";
 
-import Countable from "countable";
+import { EditorComponent } from "@progress/kendo-angular-editor";
+
+import * as CSL from "citeproc";
+
 @Component({
-  selector: "app-editor",
-  templateUrl: "./editor.component.html",
-  styleUrls: ["./editor.component.css"]
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: "app-kendoeditor",
+  templateUrl: "./kendoeditor.component.html",
+  styleUrls: ["./kendoeditor.component.css"]
 })
-export class EditorComponent implements OnInit {
-  constructor() {}
-  ngOnInit() {}
-
+export class KendoeditorComponent {
   @Input("maxWordCount") maxWordCount: Number;
+  @Output() @ViewChild("editor") public editor: EditorComponent;
+
+  @ViewChild("upload") public dialog: DialogComponent;
 
   wordCount: Number = 0;
   value = "";
+
+  changeDetection: ChangeDetectionStrategy.OnPush;
 
   change(value: any): void {
     //Regular expression to split the input value based on HTML tags
@@ -42,5 +56,11 @@ export class EditorComponent implements OnInit {
         }
       }
     });
+  }
+  open() {
+    this.dialog.open();
+  }
+  setReference(reference) {
+    console.log("reference ", reference);
   }
 }

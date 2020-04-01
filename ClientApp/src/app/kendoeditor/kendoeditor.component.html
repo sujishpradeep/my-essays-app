@@ -76,8 +76,17 @@
     <kendo-toolbar-button kendoEditorInsertFileButton></kendo-toolbar-button>
     <kendo-toolbar-button kendoEditorInsertImageButton></kendo-toolbar-button>
     <kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+    <kendo-toolbar-button
+      text="Add a Reference"
+      (click)="open()"
+    ></kendo-toolbar-button>
   </kendo-toolbar>
 </kendo-editor>
+<my-dialog
+  #upload
+  [editor]="editor"
+  (onSetReference)="setReference($event)"
+></my-dialog>
 <br />
 
 <div>
@@ -90,7 +99,5 @@
     >{{ wordCount }} words</span
   >
 </div>
-
-<br />
 
 <br />

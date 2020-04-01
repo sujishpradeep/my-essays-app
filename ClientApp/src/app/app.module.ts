@@ -12,8 +12,12 @@ import { EssayformComponent } from "./essayform/essayform.component";
 import { ParaformComponent } from "./paraform/paraform.component";
 import { EditorModule } from "@progress/kendo-angular-editor";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { EditorComponent } from "./editor/editor.component";
 import { EditpageComponent } from "./editpage/editpage.component";
+import { DialogsModule } from "@progress/kendo-angular-dialog";
+import { InputsModule } from "@progress/kendo-angular-inputs";
+import { LabelModule } from "@progress/kendo-angular-label";
+import { KendoeditorComponent } from "./kendoeditor/kendoeditor.component";
+import { DialogComponent } from "./kendoeditor/dialog.component";
 
 @NgModule({
   declarations: [
@@ -22,14 +26,18 @@ import { EditpageComponent } from "./editpage/editpage.component";
     SpecificationsComponent,
     EssayformComponent,
     ParaformComponent,
-    EditorComponent,
-    EditpageComponent
+    EditpageComponent,
+    KendoeditorComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    DialogsModule,
+    InputsModule,
+    LabelModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: "edit", component: EditpageComponent },
