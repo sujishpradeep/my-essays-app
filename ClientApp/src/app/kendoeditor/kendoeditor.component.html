@@ -89,15 +89,21 @@
 ></my-dialog>
 <br />
 
-<div>
-  <span class="badge badge-warning ml10" *ngIf="wordCount > maxWordCount">
-    Maximum word count of {{ maxWordCount }} exeeded</span
-  >
-  <span
-    class="badge  float-right mr10"
-    [ngClass]="wordCount > maxWordCount ? 'badge-danger' : 'badge-info'"
-    >{{ wordCount }} words</span
-  >
+<div class="ml10">
+  <div>
+    <span class="badge badge-warning " *ngIf="wordCount > maxWordCount">
+      Maximum word count of {{ maxWordCount }} exeeded</span
+    >
+    <span
+      class="badge  float-right mr10"
+      [ngClass]="wordCount > maxWordCount ? 'badge-danger' : 'badge-info'"
+      >{{ wordCount }} words</span
+    >
+  </div>
+  <div *ngIf="refhtml">
+    <span><u>References</u></span>
+    <span [innerHtml]="refhtml"></span>
+  </div>
 </div>
 
 <br />

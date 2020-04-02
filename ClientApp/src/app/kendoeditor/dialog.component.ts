@@ -12,7 +12,7 @@ import { EditorComponent } from "@progress/kendo-angular-editor";
   ],
   template: `
     <kendo-dialog
-      title="Insert Image"
+      title="Add a reference"
       *ngIf="opened"
       (close)="close()"
       [minWidth]="250"

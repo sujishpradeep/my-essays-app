@@ -10,7 +10,7 @@ import { DialogComponent } from "./dialog.component";
 
 import { EditorComponent } from "@progress/kendo-angular-editor";
 
-import * as CSL from "citeproc";
+import * as Cite from "citation-js";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +24,7 @@ export class KendoeditorComponent {
 
   @ViewChild("upload") public dialog: DialogComponent;
 
+  refhtml = "";
   wordCount: Number = 0;
   value = "";
 
@@ -61,6 +62,24 @@ export class KendoeditorComponent {
     this.dialog.open();
   }
   setReference(reference) {
-    console.log("reference ", reference);
+    let cite = new Cite();
+    cite.add({
+      title: reference.book,
+      author: [
+        {
+          given: reference.author
+        }
+      ]
+    });
+
+    // create a bibliography
+    const citehtml = cite.format("bibliography", {
+      format: "html",
+      template: "apa"
+    });
+
+    console.log("cite", cite);
+
+    this.refhtml = citehtml;
   }
 }
