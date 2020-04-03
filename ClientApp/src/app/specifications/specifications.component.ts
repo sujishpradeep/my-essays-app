@@ -1,10 +1,13 @@
 import { Component, OnInit } from "@angular/core";
+import { EssaysService } from "../services/essays.service";
 import {
   savePara,
   setEssayDetails,
   getParas,
   getEssayDetails
 } from "../testservice/essay-data";
+import { AppError } from "../common/app-error";
+import { BadInput } from "../common/bad-input";
 
 @Component({
   selector: "app-specifications",
@@ -12,21 +15,22 @@ import {
   styleUrls: ["./specifications.component.css"]
 })
 export class SpecificationsComponent implements OnInit {
-  constructor() {}
+  constructor(private service: EssaysService) {
+    this.essayDetails = { title: "", wordCount: 0 };
+  }
   paragraphArray = [];
 
+  essayDetails;
+
   ngOnInit(): void {
+    this.service.getAll().subscribe(response => {
+      this.essayDetails = response;
+    });
     this.paragraphArray = [...getParas()];
-    this.essayDetails = getEssayDetails();
     this.resetMultiplier();
   }
 
   multiplicator = 0;
-
-  essayDetails = {
-    title: "",
-    wordCount: 0
-  };
 
   Math = Math;
 
@@ -34,6 +38,23 @@ export class SpecificationsComponent implements OnInit {
     this.essayDetails.title = formValue.title;
     this.essayDetails.wordCount = formValue.wordCount;
     setEssayDetails(this.essayDetails.title, this.essayDetails.wordCount);
+    this.service
+      .update({
+        Title: this.essayDetails.title,
+        WordCount: this.essayDetails.wordCount
+      })
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        (error: AppError) => {
+          if (error instanceof BadInput) {
+            alert("This essay has already been inserted");
+          } else {
+            throw error;
+          }
+        }
+      );
   }
 
   submitParaForm(formValue) {
@@ -50,6 +71,28 @@ export class SpecificationsComponent implements OnInit {
     });
   }
 
+  //Initialize essay Detail
+  resetEssayDetails() {
+    this.service
+      .update({
+        Title: "",
+        WordCount: 0
+      })
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        (error: AppError) => {
+          if (error instanceof BadInput) {
+            alert("This essay has already been inserted");
+          } else {
+            throw error;
+          }
+        }
+      );
+    location.reload();
+  }
+
   //Calculate Multiplier used for finding approximate word count of each Paragraph
   resetMultiplier() {
     // For 1 "Low" Para, 1 "Medium" Para and 1 "High" Para -> total weightage = (1 + 2 + 3) = 6
@@ -58,7 +101,9 @@ export class SpecificationsComponent implements OnInit {
       0
     );
 
-    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+    if (this.essayDetails) {
+      this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+    }
   }
 
   // Paragraph Weightage used to calculate approximate word count for each Para

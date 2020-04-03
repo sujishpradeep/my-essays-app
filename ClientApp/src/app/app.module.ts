@@ -18,6 +18,7 @@ import { InputsModule } from "@progress/kendo-angular-inputs";
 import { LabelModule } from "@progress/kendo-angular-label";
 import { KendoeditorComponent } from "./kendoeditor/kendoeditor.component";
 import { DialogComponent } from "./kendoeditor/dialog.component";
+import { AppErrorHandler } from "./common/app-error-handler";
 
 @NgModule({
   declarations: [

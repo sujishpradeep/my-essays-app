@@ -9,36 +9,43 @@ namespace my_essays_app.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
 
-        [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        //Static Class for temperory storing EssayDetail model data.
+        public static class EssayDetailStore
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
+            public static string Title { get; set; }
+            public static int WordCount { get; set; }
         }
 
-        public class WeatherForecast
+        //EssayDetail Model 
+        public class EssayDetail
         {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
+            public string Title { get; set; }
+            public int WordCount { get; set; }
+        }
 
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
+        [HttpGet("[action]")]
+        public EssayDetail EssayDetails()
+        {
+
+            EssayDetail essayDetail = new EssayDetail();
+
+            //Fetch the static EssayDetailStore
+            essayDetail.Title = EssayDetailStore.Title;
+            essayDetail.WordCount = EssayDetailStore.WordCount;
+
+            return essayDetail;
+        }
+
+        [HttpPut("[action]")]
+        public EssayDetail EssayDetails([FromBody] EssayDetail essayDetail)
+        {
+            //Store the input in static EssayDetailStore
+            EssayDetailStore.Title = essayDetail.Title;
+            EssayDetailStore.WordCount = essayDetail.WordCount;
+
+            //Return the input(temperory)
+            return essayDetail;
         }
     }
 }

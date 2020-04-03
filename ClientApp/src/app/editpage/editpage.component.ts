@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { getParas, getEssayDetails } from "../testservice/essay-data";
+import { EssaysService } from "../services/essays.service";
 
 @Component({
   selector: "app-editpage",
@@ -7,13 +8,12 @@ import { getParas, getEssayDetails } from "../testservice/essay-data";
   styleUrls: ["./editpage.component.css"]
 })
 export class EditpageComponent implements OnInit {
-  constructor() {}
+  constructor(private essaysService: EssaysService) {
+    this.essayDetails = { title: "", wordCount: 0 };
+  }
 
   paragraphArray = [];
-  essayDetails = {
-    title: "",
-    wordCount: 0
-  };
+  essayDetails;
 
   isExpanded: boolean[] = [];
 
@@ -23,7 +23,10 @@ export class EditpageComponent implements OnInit {
 
   ngOnInit() {
     this.paragraphArray = getParas();
-    this.essayDetails = getEssayDetails();
+    this.essaysService.getAll().subscribe(response => {
+      this.essayDetails = response;
+    });
+
     this.isExpanded = new Array(this.paragraphArray.length).fill(false);
     this.resetMultiplier();
   }
@@ -36,7 +39,8 @@ export class EditpageComponent implements OnInit {
       0
     );
 
-    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+    if (this.essayDetails.wordCount)
+      this.multiplicator = this.essayDetails.wordCount / totalWeightage;
   }
 
   onClick(i) {
