@@ -78,8 +78,6 @@ export class KendoeditorComponent {
       template: "apa"
     });
 
-    console.log("cite", cite);
-
     this.refhtml = citehtml;
   }
 }

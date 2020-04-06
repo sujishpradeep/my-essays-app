@@ -15,19 +15,18 @@ import { BadInput } from "../common/bad-input";
   styleUrls: ["./specifications.component.css"]
 })
 export class SpecificationsComponent implements OnInit {
-  constructor(private service: EssaysService) {
-    this.essayDetails = { title: "", wordCount: 0 };
-  }
+  constructor(private service: EssaysService) {}
   paragraphArray = [];
 
-  essayDetails;
+  essayDetails = { title: "", wordCount: 0 };
 
   ngOnInit(): void {
-    this.service.getAll().subscribe(response => {
+    this.service.getAll().subscribe((response: any) => {
       this.essayDetails = response;
+      this.resetMultiplier();
     });
+
     this.paragraphArray = [...getParas()];
-    this.resetMultiplier();
   }
 
   multiplicator = 0;
@@ -80,7 +79,7 @@ export class SpecificationsComponent implements OnInit {
       })
       .subscribe(
         response => {
-          console.log(response);
+          location.reload();
         },
         (error: AppError) => {
           if (error instanceof BadInput) {
@@ -90,7 +89,6 @@ export class SpecificationsComponent implements OnInit {
           }
         }
       );
-    location.reload();
   }
 
   //Calculate Multiplier used for finding approximate word count of each Paragraph
@@ -101,9 +99,7 @@ export class SpecificationsComponent implements OnInit {
       0
     );
 
-    if (this.essayDetails) {
-      this.multiplicator = this.essayDetails.wordCount / totalWeightage;
-    }
+    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
   }
 
   // Paragraph Weightage used to calculate approximate word count for each Para

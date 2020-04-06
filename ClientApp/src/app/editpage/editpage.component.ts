@@ -13,7 +13,7 @@ export class EditpageComponent implements OnInit {
   }
 
   paragraphArray = [];
-  essayDetails;
+  essayDetails = { title: "", wordCount: 0 };
 
   isExpanded: boolean[] = [];
 
@@ -23,12 +23,12 @@ export class EditpageComponent implements OnInit {
 
   ngOnInit() {
     this.paragraphArray = getParas();
-    this.essaysService.getAll().subscribe(response => {
+    this.essaysService.getAll().subscribe((response: any) => {
       this.essayDetails = response;
+      this.resetMultiplier();
     });
 
     this.isExpanded = new Array(this.paragraphArray.length).fill(false);
-    this.resetMultiplier();
   }
 
   //Calculate Multiplier used for finding approximate word count of each Paragraph
@@ -39,8 +39,7 @@ export class EditpageComponent implements OnInit {
       0
     );
 
-    if (this.essayDetails.wordCount)
-      this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
   }
 
   onClick(i) {
