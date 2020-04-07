@@ -4,7 +4,7 @@ import {
   savePara,
   setEssayDetails,
   getParas,
-  getEssayDetails
+  getEssayDetails,
 } from "../testservice/essay-data";
 import { AppError } from "../common/app-error";
 import { BadInput } from "../common/bad-input";
@@ -12,7 +12,7 @@ import { BadInput } from "../common/bad-input";
 @Component({
   selector: "app-specifications",
   templateUrl: "./specifications.component.html",
-  styleUrls: ["./specifications.component.css"]
+  styleUrls: ["./specifications.component.css"],
 })
 export class SpecificationsComponent implements OnInit {
   constructor(private service: EssaysService) {}
@@ -40,10 +40,10 @@ export class SpecificationsComponent implements OnInit {
     this.service
       .update({
         Title: this.essayDetails.title,
-        WordCount: this.essayDetails.wordCount
+        WordCount: this.essayDetails.wordCount,
       })
       .subscribe(
-        response => {
+        (response) => {
           console.log(response);
         },
         (error: AppError) => {
@@ -60,13 +60,13 @@ export class SpecificationsComponent implements OnInit {
     this.paragraphArray.push({
       id: this.paragraphArray.length,
       reference: formValue.reference,
-      weightage: formValue.weightage ? formValue.weightage : "Low"
+      weightage: formValue.weightage ? formValue.weightage : "Low",
     });
     this.resetMultiplier();
     savePara({
       id: this.paragraphArray.length,
       reference: formValue.reference,
-      weightage: formValue.weightage ? formValue.weightage : "Low"
+      weightage: formValue.weightage ? formValue.weightage : "Low",
     });
   }
 
@@ -75,10 +75,10 @@ export class SpecificationsComponent implements OnInit {
     this.service
       .update({
         Title: "",
-        WordCount: 0
+        WordCount: 0,
       })
       .subscribe(
-        response => {
+        (response) => {
           location.reload();
         },
         (error: AppError) => {

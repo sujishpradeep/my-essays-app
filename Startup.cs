@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace my_essays_app
 {
@@ -27,6 +30,29 @@ namespace my_essays_app
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
+            //         services.AddAuthentication(opt =>
+            //         {
+            //             opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //             opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //         })
+            // .AddJwtBearer(options =>
+            // {
+            //     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            //     {
+            //         ValidateIssuer = true,
+            //         ValidateAudience = true,
+            //         ValidateLifetime = true,
+            //         ValidateIssuerSigningKey = true,
+
+            //         ValidIssuer = "http://localhost:5000",
+            //         ValidAudience = "http://localhost:5000",
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+            //     };
+            // });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

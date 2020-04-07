@@ -19,6 +19,8 @@ import { LabelModule } from "@progress/kendo-angular-label";
 import { KendoeditorComponent } from "./kendoeditor/kendoeditor.component";
 import { DialogComponent } from "./kendoeditor/dialog.component";
 import { AppErrorHandler } from "./common/app-error-handler";
+import { LoginComponent } from "./login/login.component";
+import { AuthGuard } from "./services/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AppErrorHandler } from "./common/app-error-handler";
     ParaformComponent,
     EditpageComponent,
     KendoeditorComponent,
-    DialogComponent
+    DialogComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -41,12 +44,17 @@ import { AppErrorHandler } from "./common/app-error-handler";
     LabelModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: "edit", component: EditpageComponent },
-      { path: "", component: SpecificationsComponent, pathMatch: "full" }
+      {
+        path: "specifications",
+        component: SpecificationsComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: "edit", component: EditpageComponent, canActivate: [AuthGuard] },
+      { path: "", component: LoginComponent, pathMatch: "full" },
     ]),
-    EditorModule
+    EditorModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthGuard],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
