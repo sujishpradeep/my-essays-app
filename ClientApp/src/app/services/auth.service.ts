@@ -35,6 +35,10 @@ export class AuthService {
     return localStorage.getItem("token");
   }
 
+  isLoading() {
+    return localStorage.getItem("reload") === "true" ? true : false;
+  }
+
   private handleError(error: Response) {
     if (error.status === 400) {
       return throwError(new NotFoundError(error));

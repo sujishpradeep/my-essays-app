@@ -27,6 +27,7 @@ export class SpecificationsComponent implements OnInit {
     });
 
     this.paragraphArray = [...getParas()];
+    localStorage.setItem("reload", "false");
   }
 
   multiplicator = 0;

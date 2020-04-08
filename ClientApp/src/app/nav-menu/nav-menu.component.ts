@@ -11,6 +11,10 @@ import { Router } from "@angular/router";
 })
 export class NavMenuComponent implements OnInit {
   isExpanded = false;
+
+  admin = false;
+
+  reload = false;
   name = "";
 
   constructor(public authService: AuthService, private router: Router) {}
@@ -18,6 +22,10 @@ export class NavMenuComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem("token")) {
       this.name = jwt_decode(this.authService.isLoggedin()).name;
+      this.admin =
+        jwt_decode(this.authService.isLoggedin()).admin === "true"
+          ? true
+          : false;
     }
   }
 
@@ -31,6 +39,7 @@ export class NavMenuComponent implements OnInit {
 
   onLogOut() {
     this.authService.logout();
+    this.admin = false;
     this.router.navigate(["/"]);
   }
 }

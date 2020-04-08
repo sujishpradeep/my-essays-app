@@ -21,6 +21,9 @@ import { DialogComponent } from "./kendoeditor/dialog.component";
 import { AppErrorHandler } from "./common/app-error-handler";
 import { LoginComponent } from "./login/login.component";
 import { AuthGuard } from "./services/auth-guard.service";
+import { AdminComponent } from "./admin/admin.component";
+import { AdminAuthGuard } from "./services/admin-auth-guard";
+import { LoginAuthGuard } from "./services/login-auth-guard";
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { AuthGuard } from "./services/auth-guard.service";
     KendoeditorComponent,
     DialogComponent,
     LoginComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "ng-cli-universal" }),
@@ -50,11 +54,21 @@ import { AuthGuard } from "./services/auth-guard.service";
         canActivate: [AuthGuard],
       },
       { path: "edit", component: EditpageComponent, canActivate: [AuthGuard] },
-      { path: "", component: LoginComponent, pathMatch: "full" },
+      {
+        path: "admin",
+        component: AdminComponent,
+        canActivate: [AdminAuthGuard],
+      },
+      {
+        path: "",
+        component: LoginComponent,
+        canActivate: [LoginAuthGuard],
+        pathMatch: "full",
+      },
     ]),
     EditorModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, AdminAuthGuard, LoginAuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -84,23 +84,22 @@ namespace my_essays_app.Controllers
         public UserDetail Auth([FromBody] UserDetail userDetail)
         {
 
-            //Store the input in static UserDetailStore
-            UserDetailStore.UserName = userDetail.UserName;
-            UserDetailStore.Password = userDetail.Password;
+
 
             if (userDetail.UserName.Equals("user") && userDetail.Password.Equals("pwd"))
             {
-                UserDetailStore.Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gU21pdGgiLCJ1c2VybmFtZSI6InVzZXIiLCJwYXNzd29yZCI6InB3ZCIsImlhdCI6MTUxNjIzOTAyMn0.MMDYglaGgX06z1lqFZJK2ugna88RF59zuCF2FbQQvXM";
-                userDetail.Jwt = UserDetailStore.Jwt;
+                userDetail.Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlN0ZXZlIiwiYWRtaW4iOiJmYWxzZSIsImlhdCI6MTUxNjIzOTAyMn0.zjvjtN_xBa9XPpcglqiJmB53GS81_mZ-iiy40rgfTrA";
+            }
+            else if (userDetail.UserName.Equals("admin") && userDetail.Password.Equals("pwd"))
+            {
+                userDetail.Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4iLCJhZG1pbiI6InRydWUiLCJpYXQiOjE1MTYyMzkwMjJ9.3VJGIVLI1CRdmFvf05dKxJsOebNRAtV1RhTPokDGnQY";
             }
             else
             {
                 userDetail.Jwt = "";
             }
 
-            Console.WriteLine("in Auth 2", userDetail);
 
-            //Return the input(temperory)
             return userDetail;
         }
     }

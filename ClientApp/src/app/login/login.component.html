@@ -1,4 +1,9 @@
-<form class="form-signin" #f="ngForm" (ngSubmit)="signIn(f.value)">
+<form
+  class="form-signin"
+  #f="ngForm"
+  (ngSubmit)="signIn(f.value)"
+  *ngIf="!reload"
+>
   <h2 class="form-signin-heading">Enter Login Details</h2>
   <div *ngIf="invalidLogin" class="alert alert-danger">
     Invalid username and/or password.

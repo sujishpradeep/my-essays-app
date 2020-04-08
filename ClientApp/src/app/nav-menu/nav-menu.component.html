@@ -1,4 +1,4 @@
-<div class="row" *ngIf="authService.isLoggedin()">
+<div class="row" *ngIf="!authService.isLoading() && authService.isLoggedin()">
   <div class="col-8">
     <b>{{ name }}</b>
   </div>
@@ -8,8 +8,8 @@
     </button>
   </div>
 </div>
-<br />
-<ul class="nav nav-tabs">
+
+<ul class="nav nav-tabs" *ngIf="!authService.isLoading()">
   <li
     class="nav-item active"
     [routerLinkActive]="['link-active']"
@@ -26,6 +26,14 @@
     *ngIf="authService.isLoggedin()"
   >
     <a [routerLink]="['/edit']" class="nav-link">Edit Page</a>
+  </li>
+
+  <li
+    class="nav-item active"
+    [routerLinkActive]="['link-active']"
+    *ngIf="admin"
+  >
+    <a [routerLink]="['/admin']" class="nav-link">Admin Page </a>
   </li>
 
   <li
