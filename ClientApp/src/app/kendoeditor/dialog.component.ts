@@ -8,7 +8,7 @@ import { EditorComponent } from "@progress/kendo-angular-editor";
       label {
         width: 100px;
       }
-    `
+    `,
   ],
   template: `
     <kendo-dialog
@@ -57,7 +57,7 @@ import { EditorComponent } from "@progress/kendo-angular-editor";
         </button>
       </kendo-dialog-actions>
     </kendo-dialog>
-  `
+  `,
 })
 export class DialogComponent {
   @Input() public editor: EditorComponent;
@@ -65,11 +65,9 @@ export class DialogComponent {
 
   public opened = false;
 
-  email = "ABC";
-
   reference = {
     book: "",
-    author: ""
+    author: "",
   };
   public book: string = "";
   public author: string;
