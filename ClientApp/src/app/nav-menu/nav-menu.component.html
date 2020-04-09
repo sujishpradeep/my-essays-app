@@ -1,6 +1,9 @@
 <div class="row" *ngIf="!authService.isLoading() && authService.isLoggedin()">
-  <div class="col-8">
+  <div class="col-4">
     <b>{{ name }}</b>
+  </div>
+  <div class="col-4">
+    <b>Number of Paragraphs: {{ numberofparas }} </b>
   </div>
   <div class="col-4">
     <button class="btn-sm btn-warning" (click)="onLogOut()">

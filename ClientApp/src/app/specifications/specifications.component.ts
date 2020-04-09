@@ -1,13 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { EssaysService } from "../services/essays.service";
-import {
-  savePara,
-  setEssayDetails,
-  getParas,
-  getEssayDetails,
-} from "../testservice/essay-data";
+
 import { AppError } from "../common/app-error";
 import { BadInput } from "../common/bad-input";
+import { eventDispatcher } from "../store";
+import { ActionTypes } from "../store/actions";
+import { state } from "../store";
 
 @Component({
   selector: "app-specifications",
@@ -26,7 +24,7 @@ export class SpecificationsComponent implements OnInit {
       this.resetMultiplier();
     });
 
-    this.paragraphArray = [...getParas()];
+    this.paragraphArray = [...state.paras];
     localStorage.setItem("reload", "false");
   }
 
@@ -37,7 +35,7 @@ export class SpecificationsComponent implements OnInit {
   submitEssayForm(formValue) {
     this.essayDetails.title = formValue.title;
     this.essayDetails.wordCount = formValue.wordCount;
-    setEssayDetails(this.essayDetails.title, this.essayDetails.wordCount);
+    //  setEssayDetails(this.essayDetails.title, this.essayDetails.wordCount);
     this.service
       .update({
         Title: this.essayDetails.title,
@@ -64,10 +62,19 @@ export class SpecificationsComponent implements OnInit {
       weightage: formValue.weightage ? formValue.weightage : "Low",
     });
     this.resetMultiplier();
-    savePara({
-      id: this.paragraphArray.length,
-      reference: formValue.reference,
-      weightage: formValue.weightage ? formValue.weightage : "Low",
+    // savePara({
+    //   id: this.paragraphArray.length,
+    //   reference: formValue.reference,
+    //   weightage: formValue.weightage ? formValue.weightage : "Low",
+    // });
+
+    eventDispatcher.next({
+      type: ActionTypes.CREATE_PARA,
+      payload: {
+        id: this.paragraphArray.length,
+        reference: formValue.reference,
+        weightage: formValue.weightage ? formValue.weightage : "Low",
+      },
     });
   }
 

@@ -1,18 +1,20 @@
 import { Component, OnInit } from "@angular/core";
-import { getParas, getEssayDetails } from "../testservice/essay-data";
+
 import { EssaysService } from "../services/essays.service";
+import { state } from "../store";
 
 @Component({
   selector: "app-editpage",
   templateUrl: "./editpage.component.html",
-  styleUrls: ["./editpage.component.css"]
+  styleUrls: ["./editpage.component.css"],
 })
 export class EditpageComponent implements OnInit {
+  paragraphArray = [];
+
   constructor(private essaysService: EssaysService) {
     this.essayDetails = { title: "", wordCount: 0 };
   }
 
-  paragraphArray = [];
   essayDetails = { title: "", wordCount: 0 };
 
   isExpanded: boolean[] = [];
@@ -22,24 +24,28 @@ export class EditpageComponent implements OnInit {
   Math = Math;
 
   ngOnInit() {
-    this.paragraphArray = getParas();
+    this.paragraphArray = state.paras;
+
     this.essaysService.getAll().subscribe((response: any) => {
       this.essayDetails = response;
       this.resetMultiplier();
     });
 
-    this.isExpanded = new Array(this.paragraphArray.length).fill(false);
+    if (this.paragraphArray)
+      this.isExpanded = new Array(this.paragraphArray.length).fill(false);
   }
 
   //Calculate Multiplier used for finding approximate word count of each Paragraph
   resetMultiplier() {
     // For 1 "Low" Para, 1 "Medium" Para and 1 "High" Para -> total weightage = (1 + 2 + 3) = 6
-    const totalWeightage = this.paragraphArray.reduce(
-      (a, b) => a + (this.getWeightageMultiplicator(b.weightage) || 0),
-      0
-    );
+    if (this.paragraphArray) {
+      const totalWeightage = this.paragraphArray.reduce(
+        (a, b) => a + (this.getWeightageMultiplicator(b.weightage) || 0),
+        0
+      );
 
-    this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+      this.multiplicator = this.essayDetails.wordCount / totalWeightage;
+    }
   }
 
   onClick(i) {

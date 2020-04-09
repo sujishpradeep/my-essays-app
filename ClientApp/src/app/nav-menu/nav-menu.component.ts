@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
-
 import * as jwt_decode from "jwt-decode";
 import { Router } from "@angular/router";
+import { store } from "../store";
 
 @Component({
   selector: "app-nav-menu",
@@ -17,7 +17,14 @@ export class NavMenuComponent implements OnInit {
   reload = false;
   name = "";
 
-  constructor(public authService: AuthService, private router: Router) {}
+  numberofparas: number = 0;
+
+  constructor(public authService: AuthService, private router: Router) {
+    store.subscribe((state) => {
+      const { paras } = state;
+      this.numberofparas = paras.length;
+    });
+  }
 
   ngOnInit() {
     if (localStorage.getItem("token")) {
